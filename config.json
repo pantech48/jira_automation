@@ -1,0 +1,42 @@
+{
+    "MAIN_TICKETS": {
+        "SIR-83": "PPE",
+        "SIR-234": "E3_1.2_China",
+        "SIR-239": "E3_2.0",
+        "SIR-218": "PPC_B10",
+        "SIR-235": "MLBevo UNECE",
+        "SIR-414": "PPC_X",
+        "SIR-421": "MQB"
+    },
+    "STATUSES": {
+        "PS23_NotSent": "CTQ not sent",
+        "PS23_NotRxd": "No CTQ Received So Far",
+        "PS23_RxdFTQ": "Received First Ever Filled CTQ",
+        "PS23_RevwRdy": "CTQ Ready For Review (Not Started)",
+        "PS23_RevwIP": "CTQ Review In Progress",
+        "PS23_FUQ": "CTQ Review Done, Follow-up Answers Pending",
+        "PS23_Revw_FUA": "CTQ Review Needed On Follow-up Answers Received",
+        "PS23_SPRN": "CTQ Second Person Review Needed",
+        "PS23_SPRIP": "CTQ Second Person Review In Progress",
+        "PS23_SPR_Done": "CTQ Second Person Review Comments Discussed",
+        "PS23_Done": "CTQ Review Done",
+        "PS45_NotRdy": "SSW Review Not Ready",
+        "PS45_TBPlnd": "SSW Review To Be Planned",
+        "PS45_Plnd": "SSW Review Planned",
+        "PS45_Done": "SSW Review Done",
+        "PS45_TBFUM": "SSW Review To Be Planned (Follow-up)",
+        "PS45_PlndFUM": "SSW Review Planned (Follow-up)",
+        "PS45_FUDone": "SSW Review Follow-up Done",
+        "PS6_NotRdy_Unkn": "SSW Report Not Ready",
+        "PS6_PrepRdy": "SSW Report Ready For Preparation",
+        "PS6_IRRIP": "SSW Report In Progress",
+        "PS6_IRR_RevwRdy": "SSW Report Ready (To Be Reviewed)",
+        "PS6_IRRSent": "SSW Report Reviewed and Sent To Customer",
+        "PS6_KPMOpened": "KPM Tickets Are Opened",
+        "PS6_Done": "SSW Report Done",
+        "PS6_PrepRdy0KPM": "Review Report Ready For Preparation And No KPM Ticket",
+        "PS6_IRRIP0KPM": "Review Report In Progress And No KPM Ticket",
+        "PS6_RevwRdy0KPM": "Review Report Ready (To Be Reviewed) And No KPM Ticket",
+        "PS6_IRRSent0KPM": "Review Report Reviewed and Sent To Customer And No KPM Ticket"
+    }
+}
