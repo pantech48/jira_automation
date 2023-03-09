@@ -36,9 +36,13 @@ def get_subtask_data(issue: str) -> dict:
     :return: dictionary with subtask data
     """
     jira = JIRA(server=server, token_auth=token)
-    issue_object = jira.issue(issue)
+    issue_object = jira.issue(issue, fields='summary, status, labels, comment')
     status_mapping = input_config["STATUSES"]
     summary = issue_object.fields.summary
+    if not issue_object.fields.labels:
+        labels = ''
+    else:
+        labels = ', '.join(issue_object.fields.labels)
     try:
         status = status_mapping[issue_object.fields.status.name]
     except KeyError:
@@ -52,6 +56,7 @@ def get_subtask_data(issue: str) -> dict:
         issue: {
             "summary": summary,
             "status": status,
+            "labels": labels,
             "comments": comments
         }
     }
@@ -63,7 +68,7 @@ def create_report_table(main_ticket: str) -> pd.DataFrame:
     :param main_ticket: Jira issue key
     :return: pandas DataFrame with report table
     """
-    headers = ['Summary', 'Status', 'History']
+    headers = ['Summary', 'Status', 'Labels', 'History']
     table_data_frames = []
     subtasks = get_all_subtasks(main_ticket)
     subtasks_count = len(subtasks)
@@ -72,8 +77,12 @@ def create_report_table(main_ticket: str) -> pd.DataFrame:
         data = get_subtask_data(subtask)
         summary = data[subtask]['summary']
         status = data[subtask]['status']
+        labels = data[subtask]['labels']
         comments = data[subtask]['comments']
-        table_data_frame = pd.DataFrame({'Summary': [summary], 'Status': [status], 'History': [comments]})
+        table_data_frame = pd.DataFrame({'Summary': [summary],
+                                         'Status': [status],
+                                         'Labels': [labels],
+                                         'History': [comments]})
         table_data_frames.append(table_data_frame)
     concatenated_table_data_frame = pd.concat(table_data_frames, ignore_index=True)
     return concatenated_table_data_frame
