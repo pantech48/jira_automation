@@ -1,0 +1,59 @@
+import pandas as pd
+from jira import JIRA
+
+from config_parser import config
+
+token = "ODgzMTQ0NTc4NjkzOpThGMjbxpBKrvmXtnVh6R6srHsz"
+server = "https://luxproject.luxoft.com/jira/"
+
+
+def get_main_tickets():
+    main_tickets_data_frame = pd.DataFrame.from_dict(config["MAIN_TICKETS"], orient="index", columns=["Report Tab name"])
+    main_tickets = main_tickets_data_frame.index.values
+    return main_tickets
+
+
+def get_all_subtasks(issue: str):
+    jira = JIRA(server=server, token_auth=token)
+    subtasks = [subtask.key for subtask in jira.issue(issue, expand="subtasks").fields.subtasks]
+    return subtasks
+
+
+def get_subtask_data(issue: str):
+    jira = JIRA(server=server, token_auth=token)
+    issue_object = jira.issue(issue)
+    status_mapping = config["STATUSES"]
+    summary = issue_object.fields.summary
+    try:
+        status = status_mapping[issue_object.fields.status.name]
+    except KeyError:
+        status = issue_object.fields.status.name
+    comments = ''
+    for comment in jira.comments(issue, expand="renderedBody"):
+        comments += comment.renderedBody
+        comments += '\n'
+
+    return {
+        issue: {
+            "summary": summary,
+            "status": status,
+            "comments": comments
+        }
+    }
+
+
+def create_report_table(main_ticket: str):
+    headers = ['Summary', 'Status', 'History']
+    table_data_frames = []
+    subtasks = get_all_subtasks(main_ticket)
+    subtasks_count = len(subtasks)
+    for index, subtask in enumerate(subtasks, start=1):
+        print(f"Processing subtask {index} of {subtasks_count} ({round(index / subtasks_count * 100, 1)}%)")
+        data = get_subtask_data(subtask)
+        summary = data[subtask]['summary']
+        status = data[subtask]['status']
+        comments = data[subtask]['comments']
+        table_data_frame = pd.DataFrame({'Summary': [summary], 'Status': [status], 'History': [comments]})
+        table_data_frames.append(table_data_frame)
+    concatenated_table_data_frame = pd.concat(table_data_frames, ignore_index=True)
+    return concatenated_table_data_frame

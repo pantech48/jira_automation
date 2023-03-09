@@ -4,7 +4,7 @@ import os
 
 INPUT_FILE_NAME = "ExampleInputFile.xlsx"
 INPUT_FILE_PATH = os.path.join(os.path.dirname(__file__), INPUT_FILE_NAME)
-CONFIG_FILE_NAME = "config.json"
+CONFIG_FILE_NAME = "input_file_config.json"
 
 
 def parse_main_tickets(path):
@@ -21,5 +21,8 @@ def parse_statuses(path):
     return {"STATUSES": statuses_dict}
 
 
-with open(CONFIG_FILE_NAME, "w") as f:
-    json.dump({**parse_main_tickets(INPUT_FILE_PATH), **parse_statuses(INPUT_FILE_PATH)}, f, indent=4)
+config = {**parse_main_tickets(INPUT_FILE_PATH), **parse_statuses(INPUT_FILE_PATH)}
+
+if __name__ == "__main__":
+    with open(CONFIG_FILE_NAME, "w") as f:
+        json.dump(config, f, indent=4)
