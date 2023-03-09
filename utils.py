@@ -1,28 +1,43 @@
+""" This module contains utility functions for the report generator. """
 import pandas as pd
 from jira import JIRA
 
-from config_parser import config
+from config_parser import input_config, app_config
 
-token = "ODgzMTQ0NTc4NjkzOpThGMjbxpBKrvmXtnVh6R6srHsz"
-server = "https://luxproject.luxoft.com/jira/"
+token = app_config["PAT_token"]
+server = app_config["jira_instance"]
 
 
 def get_main_tickets():
-    main_tickets_data_frame = pd.DataFrame.from_dict(config["MAIN_TICKETS"], orient="index", columns=["Report Tab name"])
+    """
+    Returns list of main tickets from config file
+    :return: list of main tickets
+    """
+    main_tickets_data_frame = pd.DataFrame.from_dict(input_config["MAIN_TICKETS"], orient="index", columns=["Report Tab name"])
     main_tickets = main_tickets_data_frame.index.values
     return main_tickets
 
 
-def get_all_subtasks(issue: str):
+def get_all_subtasks(issue: str) -> list:
+    """
+    Returns list of all subtasks for the given issue.
+    :param issue: Jira issue key
+    :return: list of subtasks
+    """
     jira = JIRA(server=server, token_auth=token)
     subtasks = [subtask.key for subtask in jira.issue(issue, expand="subtasks").fields.subtasks]
     return subtasks
 
 
-def get_subtask_data(issue: str):
+def get_subtask_data(issue: str) -> dict:
+    """
+    Returns dictionary with subtask data
+    :param issue: Jira issue key
+    :return: dictionary with subtask data
+    """
     jira = JIRA(server=server, token_auth=token)
     issue_object = jira.issue(issue)
-    status_mapping = config["STATUSES"]
+    status_mapping = input_config["STATUSES"]
     summary = issue_object.fields.summary
     try:
         status = status_mapping[issue_object.fields.status.name]
@@ -42,7 +57,12 @@ def get_subtask_data(issue: str):
     }
 
 
-def create_report_table(main_ticket: str):
+def create_report_table(main_ticket: str) -> pd.DataFrame:
+    """
+    Returns pandas DataFrame with report table
+    :param main_ticket: Jira issue key
+    :return: pandas DataFrame with report table
+    """
     headers = ['Summary', 'Status', 'History']
     table_data_frames = []
     subtasks = get_all_subtasks(main_ticket)
