@@ -22,6 +22,7 @@ pipeline {
         }
         stage('Generate report') {
             steps {
+                sh 'pip freeze'
                 sh 'python main.py'
             }
         }
