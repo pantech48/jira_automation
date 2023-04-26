@@ -14,8 +14,9 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
+                    sh 'ls -la'
                     sh 'pip --version'
-                    sh "pip install --user -r requirements.txt"
+                    sh "pip install -r requirements.txt --user"
                 }
             }
         }
