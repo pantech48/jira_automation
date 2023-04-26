@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'python:3' }
+    }
     triggers {
         cron('0 0 * * *') // This line sets the daily trigger at midnight
     }
@@ -12,6 +14,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
+                    sh 'pip --version'
                     sh "pip install -r requirements.txt"
                 }
             }
