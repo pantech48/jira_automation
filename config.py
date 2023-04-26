@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import time
 
 
 class Config:
@@ -7,6 +8,7 @@ class Config:
     JIRA_INSTANCE = "https://luxproject.luxoft.com/jira/"
     PAT_TOKEN = "ODgzMTQ0NTc4NjkzOpThGMjbxpBKrvmXtnVh6R6srHsz"
     INPUT_CONFIG_JSON = "input_config.json"
+    TIME_NOW = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
 
     # input excel file settings
     INPUT_FILE_NAME = "input.xlsx"
@@ -26,7 +28,7 @@ class Config:
     WHITE = 'white'
 
     # report file settings
-    REPORT_FILE_NAME = "report.xlsx"
+    REPORT_FILE_NAME = f"report.xlsx"
     REPORT_PATH = Path(__file__).parent / REPORT_FILE_NAME
     HEADERS = {
         "Summary": 0,

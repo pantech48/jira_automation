@@ -20,6 +20,10 @@ pipeline {
                     sh 'python main.py'
                 }
             }
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'report.xlsx', fingerprint: true
+            }
         }
     }
 }
