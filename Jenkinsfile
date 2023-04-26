@@ -16,8 +16,6 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     sh 'python --version'
-                    sh 'python -m venv venv'
-                    sh '. ./venv/bin/activate'
                     sh "pip install -r requirements.txt"
                 }
             }
