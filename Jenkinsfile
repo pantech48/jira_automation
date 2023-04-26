@@ -18,7 +18,7 @@ pipeline {
                     sh 'pip --version'
                     sh 'python -m venv venv'
                     sh '. ./venv/bin/activate'
-                    sh "pip install -r requirements.txt --user"
+                    sh "sudo pip install -r requirements.txt --user"
                 }
             }
         }
