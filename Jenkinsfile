@@ -14,11 +14,6 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-        stage('Build') {
-            steps {
-            // This is where you would run any tests
-            }
-        }
         stage('Deploy') {
             steps {
                 sh 'python main.py'
