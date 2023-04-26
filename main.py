@@ -12,10 +12,10 @@ def main():
     generate_json_config(Config.INPUT_CONFIG_JSON, input_config)
     with pd.ExcelWriter(Config.REPORT_FILE_NAME, engine='xlsxwriter') as excel_report:
         for main_ticket, sheet_name in input_config["MAIN_TICKETS"].items():
-            print(f"===============================\n"
-                  f"Processing main ticket {main_ticket}"
-                  f" ({round((list(input_config['MAIN_TICKETS']).index(main_ticket)) / len(input_config['MAIN_TICKETS']) * 100, 1)}%)"
-                  f"\n===============================")
+            print(f"""===============================
+                  Processing main ticket {main_ticket}
+                  ({round((list(input_config['MAIN_TICKETS']).index(main_ticket)) / len(input_config['MAIN_TICKETS']) * 100, 1)}%)
+                  ===============================""")
             excel_report.book.add_worksheet(sheet_name)
             report_table = create_report_table(main_ticket)
             report_table.to_excel(excel_report, sheet_name=sheet_name, index=False)
