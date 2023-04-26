@@ -17,13 +17,8 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     sh 'python --version'
                     sh "pip install -r requirements.txt"
+                    sh 'python main.py'
                 }
-            }
-        }
-        stage('Generate report') {
-            steps {
-                sh 'pip freeze'
-                sh 'python main.py'
             }
         }
     }
