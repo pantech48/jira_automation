@@ -13,13 +13,12 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                script {
-                    sh 'ls -la'
-                    sh 'pip --version'
-                    sh 'python -m venv venv'
-                    sh '. ./venv/bin/activate'
-                    sh "pip install -r requirements.txt"
-                }
+                sh 'ls -la'
+                sh 'pip --version'
+                sh 'python -m venv venv'
+                sh '. ./venv/bin/activate'
+                sh 'chmod -R 777 /.local'
+                sh "pip install -r requirements.txt"
             }
         }
         stage('Deploy') {
