@@ -51,7 +51,7 @@ def main():
 
             # Freeze the first row.
             worksheet.freeze_panes(1, 0)
-        print(f"Report was successfully created in {Config.REPORT_PATH}")
+        #print(f"Report was successfully created in {Config.REPORT_PATH}")
 
 
 if __name__ == "__main__":
