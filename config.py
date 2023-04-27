@@ -9,6 +9,7 @@ class Config:
     PAT_TOKEN = "ODgzMTQ0NTc4NjkzOpThGMjbxpBKrvmXtnVh6R6srHsz"
     INPUT_CONFIG_JSON = "input_config.json"
     TIME_NOW = time.strftime("%Y_%m_%d_%H_%M", time.localtime())
+    TIME_FORMAT_FOR_COMMENTS = "%Y-%m-%d"
 
     # input excel file settings
     INPUT_FILE_NAME = os.environ.get("input.xlsx", "input.xlsx") if os.environ.get("input.xlsx") else "input.xlsx"

@@ -1,4 +1,6 @@
 """ This module contains utility functions for the report generator. """
+import datetime
+
 import pandas as pd
 from jira import JIRA
 
@@ -53,13 +55,14 @@ def get_subtask_data(issue: str, server: str = Config.JIRA_INSTANCE, token: str 
         status = status_mapping[issue_object.fields.status.name]
     except KeyError:
         status = issue_object.fields.status.name
-    comments = ''
+
+    comments = []
     for comment in jira.comments(issue):
         author = comment.author
-        created = comment.created
-        comment = f"{author} at {created}: \n\n{comment.body}\n"
-        comments += comment
-        comments += '\n==========================================================================\n\n'
+        created = datetime.datetime.strptime(comment.created[:10], Config.TIME_FORMAT_FOR_COMMENTS).strftime("%d-%b-%Y")
+        comment = f"{author} at {created}: \n\n{comment.body}\n\n==========================================================================\n\n"
+        comments.append(comment)
+    comments = ''.join(list(reversed(comments)))
 
     return {
         issue: {
@@ -94,5 +97,6 @@ def create_report_table(main_ticket: str) -> pd.DataFrame:
         table_data_frames.append(table_data_frame)
     concatenated_table_data_frame = pd.concat(table_data_frames, ignore_index=True)
     return concatenated_table_data_frame
+
 
 
