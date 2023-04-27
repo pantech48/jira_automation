@@ -1,7 +1,7 @@
 pipeline {
     agent any
     triggers {
-        cron('0 0 * * *') // This line sets the daily trigger at midnight
+        cron('H 0 * * *') // This line sets the daily trigger at midnight
     }
     stages {
         stage('Checkout') {
