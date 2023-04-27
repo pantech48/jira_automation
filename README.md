@@ -8,7 +8,7 @@ To use this application, follow these steps:
 3. Here you have option to download input file with configurable parameters. Click on "Choose File" -> "Build"
 4. If you want to use default parameters, just skip it and click on "Build" button.
 5. Wait until build is finished. You can check build status by clicking on "Status" at the left menu.
-6. Upon finishing build, you can download output file with comments. Click on "report.xlsx" under "	Last Successful Artifacts" article.
+6. Upon finishing build, you can download output file with comments. Click on "report_2023_04_20_15_23.xlsx" (name based on current date) under "	Last Successful Artifacts" article.
 7. Report generates automatically every day at midnight.
 
 ## Configuration

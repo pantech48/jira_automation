@@ -18,7 +18,7 @@ pipeline {
                     sh 'python --version'
                     sh "pip install -r requirements.txt"
                     sh 'python main.py'
-                    archiveArtifacts artifacts: 'report.xlsx', fingerprint: true
+                    archiveArtifacts artifacts: 'report_*.xlsx', fingerprint: true
                 }
             }
         }
