@@ -39,8 +39,10 @@ def parse_statuses(path: str) -> dict:
                                   usecols=Config.STATE_STATUS_MAPPING_COLUMNS,
                                   skiprows=Config.STATE_STATUS_MAPPING_STARTING_ROW)
 
-    def_map_dict = {raw[1]: raw[2] for raw in default_mapping.itertuples()}
-    state_map_dict = {raw[1]: raw[2] for raw in state_mapping.itertuples()}
+    def_map_dict = {raw[1]: (raw[2] if not pd.isna(raw[2]) else '')
+                    for raw in default_mapping.itertuples()}
+    state_map_dict = {raw[1]: (raw[2] if not pd.isna(raw[2]) else '')
+                      for raw in state_mapping.itertuples()}
     def_map_dict.update(state_map_dict)
     return {"STATUSES": def_map_dict}
 

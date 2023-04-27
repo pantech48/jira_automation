@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build') {
             agent {
-                docker { image 'python:3' }
+                docker { image 'python:3' } // This line is uploading the python image and necessary for further steps
             }
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
