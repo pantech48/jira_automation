@@ -11,7 +11,7 @@ class Config:
     TIME_NOW = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
 
     # input excel file settings
-    INPUT_FILE_NAME = "input.xlsx"
+    INPUT_FILE_NAME = os.environ.get("input.xlsx", "input.xlsx") if os.environ.get("input.xlsx") else "input.xlsx"
     INPUT_FILE_PATH = os.path.join(os.path.dirname(__file__), INPUT_FILE_NAME)
     MAIN_TICKETS_STARTING_ROW = 0
     MAIN_TICKETS_ENDING_ROW = 2
