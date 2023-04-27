@@ -28,7 +28,7 @@ class Config:
     WHITE = 'white'
 
     # report file settings
-    REPORT_FILE_NAME = f"report_{TIME_NOW}.xlsx"
+    REPORT_FILE_NAME = f"report.xlsx"
     REPORT_PATH = Path(__file__).parent / REPORT_FILE_NAME
     HEADERS = {
         "Summary": 0,
