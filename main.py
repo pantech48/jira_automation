@@ -51,7 +51,6 @@ def main():
 
             # Freeze the first row.
             worksheet.freeze_panes(1, 0)
-            break
         print(f"Report was successfully created in {Config.REPORT_PATH}")
 
 
